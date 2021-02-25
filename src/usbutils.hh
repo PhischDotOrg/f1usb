@@ -29,7 +29,7 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "util.hh"
+#include "inline.hh"
 
 /// Der Controller hat nur 8 EPnR-Register
 static constexpr uint8_t numEP = 8;

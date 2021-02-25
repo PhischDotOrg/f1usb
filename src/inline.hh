@@ -19,53 +19,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
- * Hier werden diverse Hilfsfunktionen definiert.
- */
+#ifndef _INCLUDE_HH_017417B3_6071_48A3_85FC_D95F46A17656
+#define _INCLUDE_HH_017417B3_6071_48A3_85FC_D95F46A17656
 
-#ifndef UTIL_HH_
-#define UTIL_HH_
+/// Mit usb_always_inline markierte Funktionen werden immer geinlined
+#define usb_always_inline __attribute__((always_inline)) inline
 
-#include <stm32f1xx.h>
-
-#include "inline.hh"
-
-// Definiere eigenes myassert() analog zu Standard assert(), welches kein printf aufruft sondern nur einen Breakpoint bewirkt.
-
-#ifdef NDEBUG
-#	define myassert(cond) static_cast<void>(cond)
-#else
-#	define myassert(cond) ((cond) ? static_cast<void>(0) : assert_failed ())
-#endif
-
-void assert_failed ();
-
-/// Berechnet den Abstand zweier Integer, auch dann korrekt wenn diese unsigned sind.
-template <typename T>
-usb_always_inline constexpr T distance (T a, T b) {
-	return (a < b) ? (b - a) : (a - b);
-}
-
-/// Repräsentiert einen GPIO-Pin&Port. Kann genutzt werden, um gewünschte Pins an Klassen/Funktionen zu übergeben.
-class Pin {
-	public:
-		/**
-		 * Legt eine Pin-Instanz an; iPort & iPin starten bei 0 und geben die Nummer von Port & Pin an.
-		 * Pin { 1, 7 } entspricht z.B. PB7.
-		 */
-		constexpr Pin (uint8_t iPort, uint8_t iPin) : m_iPort (iPort), m_iPin (iPin) {}
-
-		void initClock () const;
-		void configureOutput () const;
-		void configureAFOut () const;
-		void setMode (uint8_t mode) const;
-		void set (bool value) const;
-		bool getOutput () const;
-	private:
-		GPIO_TypeDef* port () const;
-		__IO uint32_t& CRx () const;
-
-		uint8_t m_iPort, m_iPin;
-};
-
-#endif /* UTIL_HH_ */
+#endif /* _INCLUDE_HH_017417B3_6071_48A3_85FC_D95F46A17656 */

@@ -29,7 +29,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <array>
-#include "util.hh"
+#include "inline.hh"
 #include "usbutils.hh"
 
 /// Auflistung der Standard-Anfragen auf dem Default Control Endpoint 0.

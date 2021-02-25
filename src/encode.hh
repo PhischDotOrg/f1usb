@@ -34,7 +34,7 @@
 #include <array>
 #include <type_traits>
 #include <cstddef>
-#include "util.hh"
+#include "inline.hh"
 
 namespace Util {
 	template <typename T>
