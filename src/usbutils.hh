@@ -35,7 +35,11 @@
 static constexpr uint8_t numEP = 8;
 
 /// Muss bei Variablen genutzt werden, welche sich im USB-Pufferspeicher befinden (Buffer Descriptor Table und Endpoint-Puffer).
+#if !defined(__MACH__)
 #define USB_MEM __attribute__((section(".usbbuf")))
+#else
+#define USB_MEM
+#endif
 
 /// Die Instanzen hiervon werden im USB-RAM abgelegt und geben Anfang&Größe der Empfangs/Sende-Puffer an.
 struct EP_BufDesc {
@@ -62,7 +66,7 @@ static_assert(sizeof(EP_BufDesc) == 16, "");
 class UsbMem {
 	public:
 		uint16_t data;
-	private:
+	protected: // Avoid "private field not used warning"
 		char padding [2];
 };
 // Die einzelnen Instanzen von UsbMem müssen 4 Bytes groß sein sodass sie im Array an Adressen liegen die Vielfache von 4 sind.
