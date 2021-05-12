@@ -68,6 +68,12 @@ class UsbMem {
 		uint16_t data;
 	protected: // Avoid "private field not used warning"
 		char padding [2];
+
+public:
+	operator int() const { return data; }
+
+	UsbMem(void) = default;
+	constexpr UsbMem(uint16_t p_data) : data(p_data), padding { 0, 0 } { };
 };
 // Die einzelnen Instanzen von UsbMem müssen 4 Bytes groß sein sodass sie im Array an Adressen liegen die Vielfache von 4 sind.
 static_assert (sizeof(UsbMem) == 4, "");
